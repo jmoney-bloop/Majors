@@ -1,4 +1,4 @@
-from config import TEAMS, URL
+from config import TEAMS, URL, WILDCARDS
 import pandas as pd
 import streamlit as st
 
@@ -46,6 +46,18 @@ def team_scores(df):
 
     result = pd.DataFrame(rows).sort_values('Total').reset_index(drop=True)
     return result
+def add_wildcard(df, main_df):
+    wc_rows = []
+    for owner, player in WILDCARDS.items():
+        row = df[df['PLAYER'] == player][['PLAYER', 'SCORE']].copy()
+        row['Owner'] = owner
+        row['WC'] = True
+        wc_rows.append(row)
+    
+    wc_df = pd.concat(wc_rows)
+    final_df = pd.merge(main_df, wc_df, on=['Owner', 'PLAYER', 'SCORE'], how='left')
+    final_df['WC'] = final_df['WC'].fillna(False)
+    return final_df
 @st.cache_data
 def get_df():
     stats = get_stats()
