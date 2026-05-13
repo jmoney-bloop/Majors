@@ -28,7 +28,7 @@ def team_set(df):
         players = group['PLAYER'].tolist()
         row = {'Owner': owner,}
         for i, player in enumerate(players, 1):
-            row[f'F{i}'] = f'{player}'
+            row[f'G{i}'] = f'{player}'
         rows.append(row)
     result = pd.DataFrame(rows)
     return result
