@@ -4,8 +4,16 @@ import streamlit as st
 import requests
 
 def get_stats():
-    dfs = pd.read_html(URL, flavor='lxml')
-    return dfs[0]
+    dfs = pd.read_html('https://www.pgatour.com/leaderboard')
+    df = dfs[0]
+    
+    # flatten the multiindex columns
+    df.columns = [col[-1] for col in df.columns]
+    
+    # keep only what we need and rename to match your existing code
+    df = df[['Player', 'Total']].rename(columns={'Player': 'PLAYER', 'Total': 'SCORE'})
+    
+    return df
 def limit_df(df):
     df_list = []
     for owner, team in TEAMS.items():
@@ -17,9 +25,9 @@ def limit_df(df):
 
 def parse_score(df):
     df = df.copy()
-    df['SCORE'] = df['SCORE'].apply(lambda x: 0 if x == 'E' else x)
+    df['SCORE'] = df['SCORE'].apply(lambda x: 0 if x in ('E', '-') else x)
     df['SCORE'] = df['SCORE'].apply(lambda x: 15 if x == 'CUT' else x)
-    df['SCORE'] = pd.to_numeric(df['SCORE'])
+    df['SCORE'] = pd.to_numeric(df['SCORE'], errors='coerce')
     df = df.sort_values(by='SCORE')
     return df
 def team_set(df):
