@@ -1,5 +1,6 @@
 from config import TEAMS, URL
 import pandas as pd
+import streamlit as st
 
 def get_stats():
     df = pd.read_html(URL, flavor = 'lxml')
@@ -35,7 +36,7 @@ def team_scores(df):
 
     result = pd.DataFrame(rows).sort_values('Total').reset_index(drop=True)
     return result
-
+@st.cache_data
 def get_df():
     stats = get_stats()
     df = limit_df(stats)
