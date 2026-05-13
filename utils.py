@@ -12,7 +12,8 @@ def limit_df(df):
         filtered = df[df['PLAYER'].isin(team)].copy()
         filtered['Owner'] = owner
         df_list.append(filtered)
-    return pd.concat(df_list)
+    df = pd.concat(df_list)
+    return df
 
 def parse_score(df):
     df = df.copy()
@@ -21,7 +22,16 @@ def parse_score(df):
     df['SCORE'] = pd.to_numeric(df['SCORE'])
     df = df.sort_values(by='SCORE')
     return df
-
+def team_set(df):
+    rows = []
+    for owner, group in df.groupby('Owner'):
+        players = group['PLAYER'].tolist()
+        row = {'Owner': owner,}
+        for i, player in enumerate(players, 1):
+            row[f'F{i}'] = f'{player}'
+        rows.append(row)
+    result = pd.DataFrame(rows)
+    return result
 def team_scores(df):
     rows = []
     for owner, group in df.groupby('Owner'):
@@ -40,6 +50,8 @@ def team_scores(df):
 def get_df():
     stats = get_stats()
     df = limit_df(stats)
+    if "SCORE" not in stats.columns:
+        return team_set(df)
     df = parse_score(df)
     df = team_scores(df)
     return df
