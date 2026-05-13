@@ -4,11 +4,8 @@ import streamlit as st
 import requests
 
 def get_stats():
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (Chrome/120.0.0.0 Safari/537.36)'}
-    response = requests.get(URL, headers=headers)
-    df = pd.read_html(response.text, flavor='lxml')
-    return df[0]
-
+    dfs = pd.read_html(URL, flavor='lxml')
+    return dfs[0]
 def limit_df(df):
     df_list = []
     for owner, team in TEAMS.items():
