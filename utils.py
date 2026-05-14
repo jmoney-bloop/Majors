@@ -12,7 +12,7 @@ def get_stats():
 
     for c in competitors:
         rows.append({
-            'PLAYER': c['athlete']['displayName']
+            'PLAYER': c['athlete']['displayName'],
             'SCORE': c['score']['displayValue']
         })
     return pd.DataFrame(rows)
