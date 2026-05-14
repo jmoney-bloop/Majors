@@ -10,4 +10,4 @@ WILDCARDS = {'Jackson': '',
              'Steven': '',
              'Blake': '',
              'Chad': ''}
-URL = 'https://www.espn.com/golf/leaderboard/_/tournamentId/401811947'
+URL = 'https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard?tournamentId=401811947'

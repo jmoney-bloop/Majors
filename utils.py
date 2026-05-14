@@ -4,16 +4,19 @@ import streamlit as st
 import requests
 
 def get_stats():
-    dfs = pd.read_html('https://www.pgatour.com/leaderboard')
-    df = dfs[0]
+    r = requests.get(URL, headers={'User-Agent': 'Mozilla/5/0'})
+    data = r.json()
+
+    competitors = data['events'][0]['competitions'][0]['competitors']
+    rows = []
+
+    for c in competitors:
+        rows.append({
+            'PLAYER': c['athlete']['displayName']
+            'SCORE': c['score']['displayValue']
+        })
+    return pd.DataFrame(rows)
     
-    # flatten the multiindex columns
-    df.columns = [col[-1] for col in df.columns]
-    
-    # keep only what we need and rename to match your existing code
-    df = df[['Player', 'Total']].rename(columns={'Player': 'PLAYER', 'Total': 'SCORE'})
-    
-    return df
 def limit_df(df):
     df_list = []
     for owner, team in TEAMS.items():
