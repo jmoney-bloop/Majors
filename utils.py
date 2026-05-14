@@ -4,6 +4,7 @@ import streamlit as st
 import requests
 
 def get_stats():
+    dfs = pd.read_html('https://www.espn.com/golf/leaderboard', flavor = 'lxml')
     r = requests.get(URL, headers={'User-Agent': 'Mozilla/5/0'})
     data = r.json()
 
@@ -15,7 +16,7 @@ def get_stats():
             'PLAYER': c['athlete']['displayName'],
             'SCORE': c['score']['displayValue']
         })
-    return pd.DataFrame(rows)
+    return  dfs[0]
     
 def limit_df(df):
     df_list = []
@@ -57,22 +58,11 @@ def team_scores(df):
 
     result = pd.DataFrame(rows).sort_values('Total').reset_index(drop=True)
     return result
-def add_wildcard(df, main_df):
-    wc_rows = []
-    for owner, player in WILDCARDS.items():
-        row = df[df['PLAYER'] == player][['PLAYER', 'SCORE']].copy()
-        row['Owner'] = owner
-        row['WC'] = True
-        wc_rows.append(row)
-    
-    wc_df = pd.concat(wc_rows)
-    final_df = pd.merge(main_df, wc_df, on=['Owner', 'PLAYER', 'SCORE'], how='left')
-    final_df['WC'] = final_df['WC'].fillna(False)
-    return final_df
+
 @st.cache_data
 def get_df():
     stats = get_stats()
     df = limit_df(stats)
-    df = parse_score(df)
-    df = team_scores(df)
-    return df
+    scores = parse_score(df)
+    final_df = team_scores(scores)
+    return final_df
