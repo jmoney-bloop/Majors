@@ -73,8 +73,6 @@ def add_wildcard(df, main_df):
 def get_df():
     stats = get_stats()
     df = limit_df(stats)
-    if "SCORE" not in stats.columns:
-        return team_set(df)
     df = parse_score(df)
     df = team_scores(df)
     return df
