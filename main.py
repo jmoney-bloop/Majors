@@ -2,7 +2,7 @@ import streamlit as st
 from utils import get_df
 import pandas as pd
 
-st.title("PGA Championship")
+st.title("U.S. Open")
 
 if st.button(label="Refresh"):
     st.cache_data.clear()
