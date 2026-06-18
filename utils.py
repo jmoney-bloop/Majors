@@ -63,6 +63,9 @@ def team_scores(df):
 def get_df():
     stats = get_stats()
     df = limit_df(stats)
-    scores = parse_score(df)
-    final_df = team_scores(scores)
+    if 'SCORE' in df.columns:
+        scores = parse_score(df)
+        final_df = team_scores(scores)
+    else:
+        final_df = df
     return final_df

@@ -1,10 +1,10 @@
 
 
-TEAMS = {'Jackson': ['Rory McIlroy', 'Tommy Fleetwood', 'Brooks Koepka', 'Chris Gotterup', 'Sam Burns', 'Min Woo Lee'],
-         'Brian': ['Cameron Young', 'Bryson DeChambeau', 'Russell Henley', 'Viktor Hovland', 'J.J. Spaun', 'Corey Conners'],
-         'Steven': ['Jon Rahm', 'Xander Schauffele','Patrick Cantlay', 'Justin Rose', 'Jordan Spieth', 'Shane Lowry'],
-         'Blake': ['Scottie Scheffler', 'Tyrrell Hatton', 'Patrick Reed', 'Gary Woodland', 'Hideki Matsuyama', 'Sungjae Im'],
-         'Chad': ['Ludvig Åberg', 'Matt Fitzpatrick', 'Collin Morikawa', 'Rickie Fowler', 'Nicolai Højgaard', 'Si Woo Kim']}
+TEAMS = {'Jackson': ['Rory McIlroy', 'Collin Morikawa', 'Russell Henley', 'Brooks Koepka', 'Justin Rose', 'Adam Scott'],
+         'Brian': ['Cameron Young', 'Bryson DeChambeau',  'Viktor Hovland', 'J.J. Spaun', 'Shane Lowry', 'Hideki Matsuyama'],
+         'Steven': ['Scottie Scheffler', 'Sam Burns','Patrick Cantlay',  'Matt Fitzpatrick', 'Wyndham Clark', 'Harris English'],
+         'Blake': ['Jon Rahm','Tommy Fleetwood', 'Tyrrell Hatton', 'Patrick Reed', 'Si Woo Kim', 'Robert MacIntyre'],
+         'Chad': ['Ludvig Åberg','Xander Schauffele','Justin Thomas', 'Chris Gotterup', 'Ben Griffin', 'Maverick McNealy']}
 WILDCARDS = {'Jackson': 'Kota Kaneko',
              'Brian': 'Andrew Novak',
              'Steven': 'Matt Wallace',
